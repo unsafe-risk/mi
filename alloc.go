@@ -15,6 +15,11 @@ func MAllocOf[T any]() *T {
 	return (*T)(mimalloc.Malloc(int(unsafe.Sizeof(a))))
 }
 
+func MAllocSmart[T any]() *SmartPointer[T] {
+	var a T
+	return NewSmartPointer[T](mimalloc.Malloc(int(unsafe.Sizeof(a))))
+}
+
 func CAlloc(count, size int) unsafe.Pointer {
 	return mimalloc.Calloc(count, size)
 }
