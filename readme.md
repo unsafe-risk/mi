@@ -60,3 +60,35 @@ func main() {
 `CAllocOf` is make a `CArray` of type `T` with length.
 
 `FreeCArray` is free the memory of the pointer.
+
+## CArray and Slice
+
+```go
+package main
+
+import (
+	"fmt"
+	"sort"
+
+	"github.com/unsafe-risk/mi"
+)
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	c := mi.CAllocOf[int](10)
+	for i := 0; i < 10; i++ {
+		c.Set(i, -i*i)
+	}
+	sort.Ints(c.ToSlice())
+	fmt.Println(c.ToSlice())
+	mi.FreeCArray(c)
+}
+```
+
+`ToSlice()` method is return a fixed length slice of `CArray`.
+
+It equals a slice of golang, but length is immutable.
