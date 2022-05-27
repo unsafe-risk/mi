@@ -2,4 +2,4 @@ package mi
 
 import "errors"
 
-var outOfRange = errors.New("out of range")
+var errOutOfRange = errors.New("out of range")
