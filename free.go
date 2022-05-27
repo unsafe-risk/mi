@@ -1,6 +1,7 @@
 package mi
 
 import (
+	"reflect"
 	"sync/atomic"
 	"unsafe"
 
@@ -19,4 +20,11 @@ func FreeOf[T any](ptr *T) {
 func FreeCArray[T any](ptr CArray[T]) {
 	mimalloc.Free(ptr.ptr)
 	atomic.AddInt64(&alloced, -int64(ptr.len*ptr.size))
+}
+
+func FreeString(str *string) {
+	mimalloc.Free(unsafe.Pointer((*reflect.StringHeader)(unsafe.Pointer(str)).Data))
+	atomic.AddInt64(&alloced, -int64((*reflect.StringHeader)(unsafe.Pointer(str)).Len))
+	mimalloc.Free(unsafe.Pointer(str))
+	atomic.AddInt64(&alloced, -int64(pointerSize*2))
 }

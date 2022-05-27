@@ -1,6 +1,7 @@
 package mi
 
 import (
+	"reflect"
 	"sync/atomic"
 	"unsafe"
 
@@ -44,4 +45,17 @@ func CAllocOf[T any](count int) CArray[T] {
 		size: size,
 	}
 	return rs
+}
+
+func NewString(data []byte) *string {
+	ptr := MAlloc(len(data))
+	atomic.AddInt64(&alloced, int64(len(data)))
+	for i := 0; i < len(data); i++ {
+		*(*byte)(unsafe.Pointer(uintptr(ptr) + uintptr(i))) = data[i]
+	}
+	str := MAlloc(pointerSize * 2)
+	atomic.AddInt64(&alloced, int64(pointerSize*2))
+	(*reflect.StringHeader)(str).Data = uintptr(ptr)
+	(*reflect.StringHeader)(str).Len = len(data)
+	return (*string)(str)
 }
