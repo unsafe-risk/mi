@@ -12,7 +12,6 @@ func Alloced() int64 {
 }
 
 func MAlloc(size int) unsafe.Pointer {
-	atomic.AddInt64(&alloced, int64(size))
 	return mimalloc.Malloc(size)
 }
 
