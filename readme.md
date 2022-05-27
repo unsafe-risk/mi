@@ -1,6 +1,6 @@
 # mimalloc-go
 
-this is go binding of `mimalloc` with cgo.
+this is a go wrapper of `mimalloc` with cgo.
 
 # installing
 
