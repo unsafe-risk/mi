@@ -92,3 +92,35 @@ func main() {
 `ToSlice()` method is return a fixed length slice of `CArray`.
 
 It equals a slice of golang, but length is immutable.
+
+## ARENA
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/unsafe-risk/mi/arena"
+)
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	a := arena.New()
+	defer a.Free()
+	p := arena.NewOf[Person](a)
+	p.Name = "John"
+	p.Age = 30
+	fmt.Println(p)
+}
+```
+
+`arena` is a memory pool implementation from unsafe-risk/umem.
+
+The `arena` of this project is based on `mimalloc`.
+
+And, this is test code. I cannot recommend to use `arena` for your project.
