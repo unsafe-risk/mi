@@ -138,6 +138,15 @@ BenchmarkStdNew-16           	      39	  30365484 ns/op	96002062 B/op	 2000022 a
 
 ```bash
 goos: linux
+goarch: amd64
+pkg: github.com/unsafe-risk/mi/arena
+cpu: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+BenchmarkMiArenaPerson-4   	      19	  59619689 ns/op	     195 B/op	       0 allocs/op
+BenchmarkStdNew-4          	      20	  54869378 ns/op	96000574 B/op	 2000006 allocs/op
+```
+
+```bash
+goos: linux
 goarch: arm64
 pkg: github.com/unsafe-risk/mi/arena
 BenchmarkMiArenaPerson-4   	      85	  11788425 ns/op	      10 B/op	       0 allocs/op
