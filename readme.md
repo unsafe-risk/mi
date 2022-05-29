@@ -147,6 +147,15 @@ BenchmarkStdNew-4          	      20	  54869378 ns/op	96000574 B/op	 2000006 all
 
 ```bash
 goos: linux
+goarch: amd64
+pkg: github.com/unsafe-risk/mi/arena
+cpu: AMD Ryzen 7 4800H with Radeon Graphics         
+BenchmarkMiArenaPerson-16    	      32	  49734124 ns/op	     861 B/op	       2 allocs/op
+BenchmarkStdNew-16           	      52	  20565911 ns/op	96001187 B/op	 2000011 allocs/op
+```
+
+```bash
+goos: linux
 goarch: arm64
 pkg: github.com/unsafe-risk/mi/arena
 BenchmarkMiArenaPerson-4   	      85	  11788425 ns/op	      10 B/op	       0 allocs/op
