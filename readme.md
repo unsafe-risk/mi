@@ -124,3 +124,22 @@ func main() {
 The `arena` of this project is based on `mimalloc`.
 
 And, this is test code. I cannot recommend to use `arena` for your project.
+
+### arena bench
+
+```bash
+goos: darwin
+goarch: amd64
+pkg: github.com/unsafe-risk/mi/arena
+cpu: Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz
+BenchmarkMiArenaPerson-16    	      33	  33580864 ns/op	      42 B/op	       1 allocs/op
+BenchmarkStdNew-16           	      39	  30365484 ns/op	96002062 B/op	 2000022 allocs/op
+```
+
+```bash
+goos: linux
+goarch: arm64
+pkg: github.com/unsafe-risk/mi/arena
+BenchmarkMiArenaPerson-4   	      85	  11788425 ns/op	      10 B/op	       0 allocs/op
+BenchmarkStdNew-4          	      26	  44319635 ns/op	96001133 B/op	 2000011 allocs/op
+```
