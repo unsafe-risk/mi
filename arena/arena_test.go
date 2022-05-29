@@ -1,6 +1,7 @@
 package arena_test
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/unsafe-risk/mi/arena"
@@ -13,20 +14,22 @@ type Person struct {
 	Zip  int
 }
 
-const MAX = 1000000
+const MAX = 2000000
 
-func BenchmarkPerson(b *testing.B) {
-	a := arena.New()
-	for i := 0; i < b.N; i++ {
-		for j := 0; j < MAX; j++ {
-			p := arena.NewOf[Person](a)
-			p.Name = "John"
-			p.Age = 32
-			p.Addr = "London"
-			p.Zip = 1111
+func BenchmarkMiArenaPerson(b *testing.B) {
+	b.RunParallel(func(p *testing.PB) {
+		a := arena.New()
+		for p.Next() {
+			for i := 0; i < MAX; i++ {
+				p := arena.NewOf[Person](a)
+				p.Name = "John"
+				p.Age = 32
+				p.Addr = "Istanbul"
+				p.Zip = 397
+			}
 		}
-	}
-	a.Free()
+		a.Free()
+	})
 }
 
 //go:noinline
@@ -35,14 +38,17 @@ func StdNewPerson() *Person {
 	return p
 }
 
-func BenchmarkAllocateStdNew(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		for j := 0; j < MAX; j++ {
-			p := StdNewPerson()
-			p.Name = "John"
-			p.Age = 32
-			p.Addr = "London"
-			p.Zip = 1111
+func BenchmarkStdNew(b *testing.B) {
+	b.RunParallel(func(p *testing.PB) {
+		for p.Next() {
+			for i := 0; i < MAX; i++ {
+				p := StdNewPerson()
+				p.Name = "John"
+				p.Age = 32
+				p.Addr = "London"
+				p.Zip = 1111
+			}
+			runtime.GC()
 		}
-	}
+	})
 }
