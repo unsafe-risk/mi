@@ -18,8 +18,8 @@ const MAX = 2000000
 
 func BenchmarkMiArenaPerson(b *testing.B) {
 	b.RunParallel(func(p *testing.PB) {
-		a := arena.New()
 		for p.Next() {
+			a := arena.New()
 			for i := 0; i < MAX; i++ {
 				p := arena.NewOf[Person](a)
 				p.Name = "John"
@@ -27,8 +27,8 @@ func BenchmarkMiArenaPerson(b *testing.B) {
 				p.Addr = "Istanbul"
 				p.Zip = 397
 			}
+			a.Free()
 		}
-		a.Free()
 	})
 }
 
