@@ -3,6 +3,7 @@ package arena
 import (
 	"reflect"
 	"runtime"
+	"syscall"
 	"unsafe"
 
 	"github.com/unsafe-risk/mi/mimalloc"
@@ -54,7 +55,7 @@ func arenaFinalizer(a *Arena) {
 	|-----|-----|-----|-----|-----|-----|-----|-----|
 */
 
-const defaultPageSize = 16384 - 16
+var defaultPageSize = syscall.Getpagesize()*4 - 16
 
 func (r *Arena) newPage(size int) {
 	// println("Allocating new page", size)
