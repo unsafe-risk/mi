@@ -161,3 +161,12 @@ pkg: github.com/unsafe-risk/mi/arena
 BenchmarkMiArenaPerson-4   	      85	  11788425 ns/op	      10 B/op	       0 allocs/op
 BenchmarkStdNew-4          	      26	  44319635 ns/op	96001133 B/op	 2000011 allocs/op
 ```
+
+```bash
+goos: darwin
+goarch: arm64
+pkg: github.com/unsafe-risk/mi/arena
+cpu: Apple M3 Pro
+BenchmarkMiArenaPerson-12    	     270	   4534302 ns/op	      21 B/op	       0 allocs/op
+BenchmarkStdNew-12           	      51	  22088899 ns/op	96001990 B/op	 2000020 allocs/op
+```
